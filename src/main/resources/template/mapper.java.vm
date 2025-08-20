@@ -1,0 +1,16 @@
+package ${root.basePackage}.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import ${root.basePackage}.entity.${root.entityClassName};
+
+import java.util.Collection;
+/**
+ * ${root.comment} Mapper
+ *
+ * @author ${root.author}
+ * @since ${root.version}
+ */
+public interface ${root.entityClassName}Mapper extends BaseMapper<${root.entityClassName}> {
+    //void insertList(Collection<${root.entityClassName}> list);
+    //void insertOrUpdate(${root.entityClassName} o);
+}

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${root.basePackage}.mapper.${root.entityClassName}Mapper">
+    <!-- ${root.basePackage}.entity.${root.entityClassName} -->
+    <!--
+    <sql id="select_column">
+#set($index=0)
+#set($lenStr=$root.tab+$root.tab)
+#set($str=$root.tab+$root.tab)
+#set($str=$str+"a.$root.idColumn.name as '$root.idColumn.javaName',")
+#foreach ($column in $root.columns)
+    #set($str=$str+"a.$column.name as '$column.javaName'")
+    #set($lenStr=$lenStr+"a.$column.name as '$column.javaName'")
+#if($index != $root.columns.size() - 1)
+    #set($str=$str+",")
+    #set($lenStr=$lenStr+",")
+#end
+#if($lenStr.length() > 80 )
+    #set($str=$str+$root.lineSeparator+$root.tab+$root.tab)
+    #set($lenStr="")
+#end
+    #set($index=$index+1)
+#end
+$str
+    </sql>
+    -->
+
+    <!--
+    <insert id="insertList" >
+#set($index=0)
+#set($str="")
+#foreach ($column in $root.columns)
+#set($str=$str+$column.name)
+#if($index != $root.columns.size() - 1)
+#set($str=$str+",")
+#end
+#set($index=$index+1)
+#end
+        insert into ${root.tableName}($root.idColumn.name,$str)
+        values
+#set($index=0)
+#set($str="")
+#foreach ($column in $root.columns)
+#set($str=$str+"#{i.$column.javaName}")
+#if($index != $root.columns.size() - 1)
+#set($str=$str+",")
+#end
+#set($index=$index+1)
+#end
+        <foreach collection="list" item="i" separator=",">
+            (#{i.$root.idColumn.javaName},$str)
+        </foreach>
+    </insert>
+    -->
+
+    <!--
+    <insert id="insertOrUpdate" parameterType="${root.basePackage}.entity.${root.entityClassName}">
+#set($index=0)
+#set($str="")
+#foreach ($column in $root.columns)
+#set($str=$str+$column.name)
+#if($index != $root.columns.size() - 1)
+#set($str=$str+",")
+#end
+#set($index=$index+1)
+#end
+        insert into ${root.tableName}($root.idColumn.name,$str)
+#set($index=0)
+#set($str="")
+#foreach ($column in $root.columns)
+#set($str=$str+"#{$column.javaName}")
+#if($index != $root.columns.size() - 1)
+#set($str=$str+",")
+#end
+#set($index=$index+1)
+#end
+        values(#{$root.idColumn.javaName},$str)
+        on duplicate key update
+#set($index=0)
+#set($str="")
+#foreach ($column in $root.columns)
+#set($str=$str+$root.tab+$root.tab+$root.tab+$column.name+"=values($column.name)")
+#if($index != $root.columns.size() - 1)
+#set($str=$str+","+$root.lineSeparator)
+#end
+#set($index=$index+1)
+#end
+$str
+    </insert>
+    -->
+</mapper>

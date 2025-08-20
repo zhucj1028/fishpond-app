@@ -1,0 +1,25 @@
+package ${root.basePackage}.service.impl;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import ${root.basePackage}.entity.${root.entityClassName};
+import ${root.basePackage}.mapper.${root.entityClassName}Mapper;
+import ${root.basePackage}.service.${root.entityClassName}Service;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+#if($root.serviceImportPackages)
+$root.serviceImportPackages
+#end
+
+/**
+ * ${root.comment} ServiceImpl
+ *
+ * @author ${root.author}
+ * @since ${root.version}
+ */
+#if($root.serviceAnnotations)
+$root.serviceAnnotations
+#end
+@Service
+@RequiredArgsConstructor
+class ${root.entityClassName}ServiceImpl extends ServiceImpl<${root.entityClassName}Mapper, ${root.entityClassName}> implements ${root.entityClassName}Service {
+}

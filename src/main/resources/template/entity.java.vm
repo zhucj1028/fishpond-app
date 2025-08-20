@@ -1,0 +1,44 @@
+package ${root.basePackage}.entity;
+
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.experimental.Accessors;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+
+/**
+ * ${root.comment} 实体
+ *
+ * @author ${root.author}
+ * @since ${root.version}
+*/
+@Data
+@Accessors(chain = true)
+@Schema(description = "${root.comment}")
+@TableName("${root.tableName}")
+public class ${root.entityClassName} {
+    /** ${root.idColumn.comment} */
+    @TableId
+    //@NotBlank(message = "$root.idColumn.comment不能为空")
+    @Schema(description = "${root.idColumn.comment}")
+    private ${root.idColumn.javaType} ${root.idColumn.javaName};
+#foreach ($column in $root.columns)
+
+    /** ${column.comment} */
+#if($column.nullAble.equalsIgnoreCase('no'))
+#if($column.javaType.equalsIgnoreCase('string'))
+#if($root.entityPreferNotNull)
+    @NotNull(message = "$column.comment不能为null")
+#else
+    @NotBlank(message = "$column.comment不能为空")
+#end
+#else
+    @NotNull(message = "$column.comment不能为null")
+#end
+#end
+    @Schema(description ="$column.comment")
+    private $column.javaType $column.javaName;
+#end
+}
