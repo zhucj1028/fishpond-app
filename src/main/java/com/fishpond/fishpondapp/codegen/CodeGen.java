@@ -18,14 +18,14 @@ public class CodeGen {
             .password("Zhu19971028")
             .excludeColumns(new String[]{"create_time", "update_time"})
             .databaseName("fishpond_app")
-            .tableName("admin_user")
+            .tableName("admin_user_role")
             .build();
 
     static GenConfig genConfig = GenConfig.builder()
             .moduleName("fishpond-app")
             .packages(new String[]{"fishpondapp.business","admin"})//自动补全为：com.ruogu.cloud.[packages1].[packages2]
             .author("zhucj")
-            .entityClassName("adminUser")// 未设置实体类名时，通过表名生成类名
+            .entityClassName("AdminUserRole")// 未设置实体类名时，通过表名生成类名
             .controllerContainsDeleted(true)
             .build();
 

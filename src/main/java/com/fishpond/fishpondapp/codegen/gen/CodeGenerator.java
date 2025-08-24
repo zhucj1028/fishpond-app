@@ -96,7 +96,8 @@ public class CodeGenerator {
     }
 
     public CodeGenerator generatePackages() {
-        List<String> pkgs = Arrays.asList("controller", "service.impl", "mapper", "entity", "dto", "bo", "enums", "constant", "job", "msg", "handler", "builder");
+//        List<String> pkgs = Arrays.asList("controller", "service.impl", "mapper", "entity", "dto", "bo", "enums", "constant", "job", "msg", "handler", "builder");
+        List<String> pkgs = Arrays.asList("controller", "service.impl", "mapper", "entity", "dto");
 
         for (String pkg : pkgs) {
             List<String> dirs = new ArrayList<>();

@@ -1,7 +1,7 @@
-package ${root.basePackage}.controller;
+package com.fishpond.fishpondapp.business.acl.controller;
 
-import ${root.basePackage}.entity.${root.entityClassName};
-import ${root.basePackage}.service.${root.entityClassName}Service;
+import com.fishpond.fishpondapp.business.acl.entity.AclPermission;
+import com.fishpond.fishpondapp.business.acl.service.AclPermissionService;
 import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -18,82 +18,72 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * ${root.comment} Controller
+ * 权限表 Controller
  *
- * @author ${root.author}
- * @since ${root.version}
+ * @author zhucj
+ * @since 2025-08-24
  */
-@Tag(name = "${root.comment}")
+@Tag(name = "权限表")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("$root.controllerMapping")
-class ${root.entityClassName}Controller {
-    private final ${root.entityClassName}Service ${root.entityClassVarName}Service;
+@RequestMapping("/admin/permission")
+class AclPermissionController {
+    private final AclPermissionService adminPermissionService;
 
     @Operation(summary = "按条件分页查询所有")
     @PostMapping("/v1/page")
     @PreAuthorize("@atc.admin")//默认只有管理员能访问该接口。其他设置：@atc.admin、@atc.user、@atc.inside、@atc.hasAuthority('xxx')
-    public R<IPage<${root.entityClassName}>> v1Page(@RequestBody Page<${root.entityClassName}> page) {
-#if($root.controllerContainsDeleted)
-#end
-        QueryWrapper<${root.entityClassName}> queryWrapper = new QueryWrapper<>();
+    public R<IPage<AclPermission>> v1Page(@RequestBody Page<AclPermission> page) {
+        QueryWrapper<AclPermission> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("deleted", DeletedConstants.FALSE);
-        IPage<${root.entityClassName}> result = ${root.entityClassVarName}Service.page(page, queryWrapper);
+        IPage<AclPermission> result = adminPermissionService.page(page, queryWrapper);
         return R.ok(result);
     }
 
     @Operation(summary = "按条件查询所有")
     @PostMapping("/v1/listAll")
     @PreAuthorize("@atc.admin")//默认只有管理员能访问该接口。其他设置：@atc.admin、@atc.user、@atc.inside、@atc.hasAuthority('xxx')
-    public R<List<${root.entityClassName}>> v1ListAll(@RequestBody ${root.entityClassName} o) {
-#if($root.controllerContainsDeleted)
-        o.setDeleted(DeletedConstants.FALSE);
-#end
-        QueryWrapper<${root.entityClassName}> queryWrapper = new QueryWrapper<>();
+    public R<List<AclPermission>> v1ListAll(@RequestBody AclPermission o) {
+//        o.setDeleted(DeletedConstants.FALSE);
+        QueryWrapper<AclPermission> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("deleted", DeletedConstants.FALSE);
-        return R.ok(${root.entityClassVarName}Service.list(queryWrapper));
+        return R.ok(adminPermissionService.list(queryWrapper));
     }
 
     @Operation(summary = "按ID获取信息")
     @GetMapping("/v1/info/{id}")
     @PreAuthorize("@atc.admin")//默认只有管理员能访问该接口。其他设置：@atc.admin、@atc.user、@atc.inside、@atc.hasAuthority('xxx')
-    public R<${root.entityClassName}> v1Info(@PathVariable String id) {
-        return R.ok(${root.entityClassVarName}Service.getById(id));
+    public R<AclPermission> v1Info(@PathVariable String id) {
+        return R.ok(adminPermissionService.getById(id));
     }
 
     @Operation(summary = "按ID删除")
     @GetMapping("/v1/delete/{id}")
     @PreAuthorize("@atc.admin")//默认只有管理员能访问该接口。其他设置：@atc.admin、@atc.user、@atc.inside、@atc.hasAuthority('xxx')
     public R<Void> v1Delete(@PathVariable String id) {
-        ${root.entityClassName} o = new ${root.entityClassName}();
-        o.set${root.idColumn.javaName.substring(0,1).toUpperCase()}${root.idColumn.javaName.substring(1)}(id);
-#if($root.controllerContainsDeleted)
-        o.setDeleted(DeletedConstants.TRUE);
-#end
-        ${root.entityClassVarName}Service.updateById(o);
+        AclPermission o = new AclPermission();
+        o.setId(id);
+//        o.setDeleted(DeletedConstants.TRUE);
+        adminPermissionService.updateById(o);
         return R.ok();
     }
 
     @Operation(summary = "按ID修改")
     @PostMapping("/v1/modify")
     @PreAuthorize("@atc.admin")//默认只有管理员能访问该接口。其他设置：@atc.admin、@atc.user、@atc.inside、@atc.hasAuthority('xxx')
-    public R<Void> v1Modify(@RequestBody @Validated ${root.entityClassName} o) {
-#if($root.controllerContainsDeleted)
-        o.setDeleted(DeletedConstants.FALSE);
-#end
-        ${root.entityClassVarName}Service.updateById(o);
+    public R<Void> v1Modify(@RequestBody @Validated AclPermission o) {
+//        o.setDeleted(DeletedConstants.FALSE);
+        adminPermissionService.updateById(o);
         return R.ok();
     }
 
     @Operation(summary = "新增")
     @PostMapping("/v1/add")
     @PreAuthorize("@atc.admin")//默认只有管理员能访问该接口。其他设置：@atc.admin、@atc.user、@atc.inside、@atc.hasAuthority('xxx')
-    public R<Void> v1Add(@RequestBody @Validated ${root.entityClassName} o) {
-        o.set${root.idColumn.javaName.substring(0,1).toUpperCase()}${root.idColumn.javaName.substring(1)}(IdUtil.randomUUID());
-#if($root.controllerContainsDeleted)
-        o.setDeleted(DeletedConstants.FALSE);
-#end
-        ${root.entityClassVarName}Service.save(o);
+    public R<Void> v1Add(@RequestBody @Validated AclPermission o) {
+        o.setId(IdUtil.randomUUID());
+//        o.setDeleted(DeletedConstants.FALSE);
+        adminPermissionService.save(o);
         return R.ok();
     }
 }
