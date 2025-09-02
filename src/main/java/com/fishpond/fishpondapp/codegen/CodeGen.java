@@ -7,7 +7,7 @@ import com.fishpond.fishpondapp.codegen.gen.GenConfig;
 
 /**
  * @Author: Zhucj
- * @Description: TODO
+ * @Description:
  * @Date: 2025/8/20 14:57
  */
 public class CodeGen {
@@ -18,14 +18,14 @@ public class CodeGen {
             .password("Zhu19971028")
             .excludeColumns(new String[]{"create_time", "update_time"})
             .databaseName("fishpond_app")
-            .tableName("admin_user_role")
+            .tableName("t_permission")
             .build();
 
     static GenConfig genConfig = GenConfig.builder()
             .moduleName("fishpond-app")
-            .packages(new String[]{"fishpondapp.business","admin"})//自动补全为：com.ruogu.cloud.[packages1].[packages2]
+            .packages(new String[]{"fishpondapp.business","user"})//自动补全为：com.ruogu.cloud.[packages1].[packages2]
             .author("zhucj")
-            .entityClassName("AdminUserRole")// 未设置实体类名时，通过表名生成类名
+            .entityClassName("Permission")// 未设置实体类名时，通过表名生成类名
             .controllerContainsDeleted(true)
             .build();
 

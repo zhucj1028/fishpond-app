@@ -1,0 +1,75 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: fishpond-app
+  
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://120.25.174.173:3309/fishpond_app?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: Zhu19971028
+  
+  # Redis配置
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+#      password:
+#      database: 0
+#      timeout: 10000ms
+#      lettuce:
+#        pool:
+#          max-active: 8
+#          max-wait: -1ms
+#          max-idle: 8
+#          min-idle: 0
+
+# MyBatis-Plus配置
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# JWT配置
+jwt:
+  secret: fishpond-secret-key-2025-01-01-very-long-secret-key-for-security
+  expiration: 86400  # 24小时，单位：秒
+  header: Authorization
+  prefix: "Bearer "
+
+# 日志配置
+logging:
+  level:
+    com.fishpond.fishpondapp: debug
+    org.springframework.security: debug
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n"
+
+springdoc:
+  api-docs:
+    path: /api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: method
+    # 禁用远程配置加载
+    config-url: 
+    url: /api-docs
+    # 启用本地配置
+    use-root-path: true
+  # 禁用远程配置验证
+  show-actuator: false
+
+wechat:
+  appid: wx63e24cb50e8af9daa
+  secret: 700ff2f6b919ac2c336e0958a8b0b4066

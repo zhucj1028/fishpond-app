@@ -2,7 +2,7 @@ package com.fishpond.fishpondapp.common.constant;
 
 /**
  * @Author: Zhucj
- * @Description: TODO
+ * @Description:
  * @Date: 2025/8/20 17:19
  */
 public interface DeletedConstants {
